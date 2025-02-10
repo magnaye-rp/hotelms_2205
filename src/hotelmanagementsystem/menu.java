@@ -4,6 +4,20 @@
  */
 package hotelmanagementsystem;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author bugtong
@@ -33,42 +47,42 @@ public class menu extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jButton6 = new javax.swing.JButton();
+        priceTxt = new javax.swing.JTextField();
+        status = new javax.swing.JTextField();
+        roomType = new javax.swing.JComboBox<>();
+        addRoom = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        roomList = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        costumerName = new javax.swing.JTextField();
+        checkInDate = new com.toedter.calendar.JDateChooser();
+        checkOutDate = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
+        bookingStatus = new javax.swing.JComboBox<>();
+        confirmBook = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
+        roomChoice = new javax.swing.JComboBox<>();
+        bookingCost = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        bookingList = new javax.swing.JTable();
+        cancelBook = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        nameCostumer = new javax.swing.JTextField();
+        emailCostumer = new javax.swing.JTextField();
+        contactCostumer = new javax.swing.JTextField();
+        addCostumer = new javax.swing.JButton();
+        deleteCostumer = new javax.swing.JButton();
+        updateCostumer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        listCostumer = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,26 +115,31 @@ public class menu extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(0, 76, 84));
         jLabel14.setText("Price:");
 
-        jTextField8.setEditable(false);
+        status.setEditable(false);
 
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jComboBox3.setForeground(new java.awt.Color(0, 76, 84));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Double" }));
-
-        jButton6.setBackground(new java.awt.Color(0, 192, 163));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 76, 84));
-        jButton6.setText("ADD");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        roomType.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        roomType.setForeground(new java.awt.Color(0, 76, 84));
+        roomType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Double" }));
+        roomType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                roomTypeActionPerformed(evt);
             }
         });
 
-        jTable3.setBackground(new java.awt.Color(0, 192, 163));
-        jTable3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTable3.setForeground(new java.awt.Color(0, 76, 84));
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        addRoom.setBackground(new java.awt.Color(0, 192, 163));
+        addRoom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addRoom.setForeground(new java.awt.Color(0, 76, 84));
+        addRoom.setText("ADD");
+        addRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRoomActionPerformed(evt);
+            }
+        });
+
+        roomList.setBackground(new java.awt.Color(0, 192, 163));
+        roomList.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        roomList.setForeground(new java.awt.Color(0, 76, 84));
+        roomList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -166,8 +185,8 @@ public class menu extends javax.swing.JFrame {
                 "Room Type", "Price", "Availability"
             }
         ));
-        jTable3.setShowGrid(true);
-        jScrollPane3.setViewportView(jTable3);
+        roomList.setShowGrid(true);
+        jScrollPane3.setViewportView(roomList);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -181,21 +200,21 @@ public class menu extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton6)
+                            .addComponent(addRoom)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel14))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jComboBox3, 0, 129, Short.MAX_VALUE))))
+                                    .addComponent(priceTxt)
+                                    .addComponent(roomType, 0, 129, Short.MAX_VALUE))))
                         .addGap(57, 57, 57)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(14, 14, Short.MAX_VALUE))
         );
@@ -209,17 +228,17 @@ public class menu extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
                         .addComponent(jLabel12)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(roomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(priceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6)))
+                        .addComponent(addRoom)))
                 .addGap(17, 17, 17))
         );
 
@@ -239,9 +258,9 @@ public class menu extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 76, 84));
         jLabel7.setText("Check-Out Date:");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        costumerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                costumerNameActionPerformed(evt);
             }
         });
 
@@ -249,22 +268,22 @@ public class menu extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 76, 84));
         jLabel8.setText("Status:");
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 76, 84));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONFIRMED", "CANCELLED", "COMPLETED" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        bookingStatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        bookingStatus.setForeground(new java.awt.Color(0, 76, 84));
+        bookingStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CONFIRMED", "CANCELLED", "COMPLETED" }));
+        bookingStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                bookingStatusActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(0, 192, 163));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 76, 84));
-        jButton4.setText("CONFIRM");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        confirmBook.setBackground(new java.awt.Color(0, 192, 163));
+        confirmBook.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        confirmBook.setForeground(new java.awt.Color(0, 76, 84));
+        confirmBook.setText("CONFIRM");
+        confirmBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                confirmBookActionPerformed(evt);
             }
         });
 
@@ -276,14 +295,14 @@ public class menu extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 76, 84));
         jLabel10.setText("Price:");
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(0, 76, 84));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room2", "Room 3" }));
+        roomChoice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        roomChoice.setForeground(new java.awt.Color(0, 76, 84));
+        roomChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room2", "Room 3" }));
 
-        jTable2.setBackground(new java.awt.Color(0, 192, 163));
-        jTable2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTable2.setForeground(new java.awt.Color(0, 76, 84));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        bookingList.setBackground(new java.awt.Color(0, 192, 163));
+        bookingList.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        bookingList.setForeground(new java.awt.Color(0, 76, 84));
+        bookingList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -329,21 +348,21 @@ public class menu extends javax.swing.JFrame {
                 "Name", "Check-In Date", "Check-Out Date", "Room", "Price"
             }
         ));
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setHeaderValue("Room");
-            jTable2.getColumnModel().getColumn(4).setHeaderValue("Price");
+        bookingList.setShowGrid(true);
+        jScrollPane2.setViewportView(bookingList);
+        if (bookingList.getColumnModel().getColumnCount() > 0) {
+            bookingList.getColumnModel().getColumn(3).setResizable(false);
+            bookingList.getColumnModel().getColumn(3).setHeaderValue("Room");
+            bookingList.getColumnModel().getColumn(4).setHeaderValue("Price");
         }
 
-        jButton5.setBackground(new java.awt.Color(0, 192, 163));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 76, 84));
-        jButton5.setText("CANCEL");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        cancelBook.setBackground(new java.awt.Color(0, 192, 163));
+        cancelBook.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cancelBook.setForeground(new java.awt.Color(0, 76, 84));
+        cancelBook.setText("CANCEL");
+        cancelBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                cancelBookActionPerformed(evt);
             }
         });
 
@@ -363,21 +382,21 @@ public class menu extends javax.swing.JFrame {
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(jTextField5)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(costumerName)
+                            .addComponent(checkInDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkOutDate, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                            .addComponent(bookingCost)
+                            .addComponent(roomChoice, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bookingStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton4)
+                        .addComponent(confirmBook)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
+                        .addComponent(cancelBook)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
                 .addContainerGap())
@@ -391,31 +410,31 @@ public class menu extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(costumerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(checkInDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(checkOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(roomChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bookingCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5))
+                            .addComponent(confirmBook)
+                            .addComponent(cancelBook))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(bookingStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -450,55 +469,55 @@ public class menu extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 76, 84));
         jLabel6.setText("Email:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nameCostumer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nameCostumerActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        contactCostumer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                contactCostumerActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 192, 163));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 76, 84));
-        jButton1.setText("ADD");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addCostumer.setBackground(new java.awt.Color(0, 192, 163));
+        addCostumer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addCostumer.setForeground(new java.awt.Color(0, 76, 84));
+        addCostumer.setText("ADD");
+        addCostumer.setBorder(null);
+        addCostumer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addCostumerActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 192, 163));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 76, 84));
-        jButton2.setText("DELETE");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        deleteCostumer.setBackground(new java.awt.Color(0, 192, 163));
+        deleteCostumer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        deleteCostumer.setForeground(new java.awt.Color(0, 76, 84));
+        deleteCostumer.setText("DELETE");
+        deleteCostumer.setBorder(null);
+        deleteCostumer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                deleteCostumerActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 192, 163));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 76, 84));
-        jButton3.setText("UPDATE");
-        jButton3.setBorder(null);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        updateCostumer.setBackground(new java.awt.Color(0, 192, 163));
+        updateCostumer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        updateCostumer.setForeground(new java.awt.Color(0, 76, 84));
+        updateCostumer.setText("UPDATE");
+        updateCostumer.setBorder(null);
+        updateCostumer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                updateCostumerActionPerformed(evt);
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(0, 192, 163));
-        jTable1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 76, 84));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        listCostumer.setBackground(new java.awt.Color(0, 192, 163));
+        listCostumer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        listCostumer.setForeground(new java.awt.Color(0, 76, 84));
+        listCostumer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -544,8 +563,8 @@ public class menu extends javax.swing.JFrame {
                 "Name", "Email", "Contact Number"
             }
         ));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        listCostumer.setShowGrid(true);
+        jScrollPane1.setViewportView(listCostumer);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -560,19 +579,19 @@ public class menu extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(emailCostumer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameCostumer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addCostumer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(updateCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(deleteCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(contactCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
                 .addContainerGap())
@@ -585,20 +604,20 @@ public class menu extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nameCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(emailCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(contactCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(addCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -639,45 +658,103 @@ public class menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void updateCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCostumerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_updateCostumerActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void deleteCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCostumerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_deleteCostumerActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCostumerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addCostumerActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void contactCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactCostumerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_contactCostumerActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nameCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameCostumerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nameCostumerActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void cancelBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBookActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_cancelBookActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void confirmBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBookActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_confirmBookActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void bookingStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingStatusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_bookingStatusActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void costumerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_costumerNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_costumerNameActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void addRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoomActionPerformed
+        String selected = (String) roomType.getSelectedItem();
+        String priceText = priceTxt.getText().trim();
+
+    // Validate input
+    if (selected.isEmpty() || priceText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    double price;
+    try {
+        price = Double.parseDouble(priceText);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid price format.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String query = "INSERT INTO room (room_type, price, availability_status) VALUES (?, ?, 'Available')";
+    
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+         PreparedStatement pst = conn.prepareStatement(query)) {
+        
+        pst.setString(1, selected);
+        pst.setDouble(2, price);
+        
+        int rowsInserted = pst.executeUpdate();
+
+        if (rowsInserted > 0) {
+            JOptionPane.showMessageDialog(this, "Room added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            fetchAndDisplayRooms();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add room.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_addRoomActionPerformed
+
+    public void fetchAndDisplayRooms() {
+    DefaultTableModel model = (DefaultTableModel) roomList.getModel();
+    model.setRowCount(0);
+    
+    String query = "SELECT room_type, price, availability_status FROM room";
+    
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+         PreparedStatement pst = conn.prepareStatement(query);
+         ResultSet rs = pst.executeQuery()) {
+        
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getString("room_type"), rs.getDouble("price"), rs.getString("availability_status")});
+        }
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    private void roomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_roomTypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -715,17 +792,19 @@ public class menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton addCostumer;
+    private javax.swing.JButton addRoom;
+    private javax.swing.JTextField bookingCost;
+    private javax.swing.JTable bookingList;
+    private javax.swing.JComboBox<String> bookingStatus;
+    private javax.swing.JButton cancelBook;
+    private com.toedter.calendar.JDateChooser checkInDate;
+    private com.toedter.calendar.JDateChooser checkOutDate;
+    private javax.swing.JButton confirmBook;
+    private javax.swing.JTextField contactCostumer;
+    private javax.swing.JTextField costumerName;
+    private javax.swing.JButton deleteCostumer;
+    private javax.swing.JTextField emailCostumer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -749,15 +828,13 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable listCostumer;
+    private javax.swing.JTextField nameCostumer;
+    private javax.swing.JTextField priceTxt;
+    private javax.swing.JComboBox<String> roomChoice;
+    private javax.swing.JTable roomList;
+    private javax.swing.JComboBox<String> roomType;
+    private javax.swing.JTextField status;
+    private javax.swing.JButton updateCostumer;
     // End of variables declaration//GEN-END:variables
 }
