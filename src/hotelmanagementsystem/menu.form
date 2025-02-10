@@ -692,8 +692,8 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="emailCostumer" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
-                                      <Component id="nameCostumer" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+                                      <Component id="emailCustomer" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+                                      <Component id="nameCustomer" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -708,7 +708,7 @@
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="deleteCostumer" min="-2" pref="58" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="contactCostumer" min="-2" pref="141" max="-2" attributes="0"/>
+                                      <Component id="contactCustomer" min="-2" pref="141" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -726,17 +726,17 @@
                                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="nameCostumer" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nameCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="emailCostumer" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="contactCostumer" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="contactCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -789,16 +789,16 @@
                     <Property name="text" type="java.lang.String" value="Email:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="nameCostumer">
+                <Component class="javax.swing.JTextField" name="nameCustomer">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameCostumerActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameCustomerActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="emailCostumer">
+                <Component class="javax.swing.JTextField" name="emailCustomer">
                 </Component>
-                <Component class="javax.swing.JTextField" name="contactCostumer">
+                <Component class="javax.swing.JTextField" name="contactCustomer">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contactCostumerActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contactCustomerActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="addCostumer">
@@ -868,7 +868,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="listCostumer">
+                    <Component class="javax.swing.JTable" name="listCustomer">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="a3" green="c0" red="0" type="rgb"/>

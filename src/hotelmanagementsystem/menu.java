@@ -75,14 +75,14 @@ public class menu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        nameCostumer = new javax.swing.JTextField();
-        emailCostumer = new javax.swing.JTextField();
-        contactCostumer = new javax.swing.JTextField();
+        nameCustomer = new javax.swing.JTextField();
+        emailCustomer = new javax.swing.JTextField();
+        contactCustomer = new javax.swing.JTextField();
         addCostumer = new javax.swing.JButton();
         deleteCostumer = new javax.swing.JButton();
         updateCostumer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listCostumer = new javax.swing.JTable();
+        listCustomer = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -469,15 +469,15 @@ public class menu extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 76, 84));
         jLabel6.setText("Email:");
 
-        nameCostumer.addActionListener(new java.awt.event.ActionListener() {
+        nameCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameCostumerActionPerformed(evt);
+                nameCustomerActionPerformed(evt);
             }
         });
 
-        contactCostumer.addActionListener(new java.awt.event.ActionListener() {
+        contactCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contactCostumerActionPerformed(evt);
+                contactCustomerActionPerformed(evt);
             }
         });
 
@@ -514,10 +514,10 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        listCostumer.setBackground(new java.awt.Color(0, 192, 163));
-        listCostumer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        listCostumer.setForeground(new java.awt.Color(0, 76, 84));
-        listCostumer.setModel(new javax.swing.table.DefaultTableModel(
+        listCustomer.setBackground(new java.awt.Color(0, 192, 163));
+        listCustomer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        listCustomer.setForeground(new java.awt.Color(0, 76, 84));
+        listCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -563,8 +563,8 @@ public class menu extends javax.swing.JFrame {
                 "Name", "Email", "Contact Number"
             }
         ));
-        listCostumer.setShowGrid(true);
-        jScrollPane1.setViewportView(listCostumer);
+        listCustomer.setShowGrid(true);
+        jScrollPane1.setViewportView(listCustomer);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -579,8 +579,8 @@ public class menu extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailCostumer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameCostumer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(emailCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -591,7 +591,7 @@ public class menu extends javax.swing.JFrame {
                                 .addComponent(updateCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(deleteCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(contactCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(contactCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
                 .addContainerGap())
@@ -604,15 +604,15 @@ public class menu extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(nameCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nameCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(emailCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(emailCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(contactCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(contactCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -659,24 +659,141 @@ public class menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCostumerActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = listCustomer.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a customer to update.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String name = nameCustomer.getText().trim();
+    String email = emailCustomer.getText().trim();
+    String contact = contactCustomer.getText().trim();
+
+    if (name.isEmpty() || email.isEmpty() || contact.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    String query = "UPDATE customer SET name = ?, email = ?, phone_number = ? WHERE email = ?";
+    
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+         PreparedStatement pst = conn.prepareStatement(query)) {
+        
+        pst.setString(1, name);
+        pst.setString(2, email);
+        pst.setString(3, contact);
+        pst.setString(4, email);
+        
+        int rowsUpdated = pst.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(this, "Customer updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            fetchAndDisplayCustomers();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to update customer.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_updateCostumerActionPerformed
 
+
     private void deleteCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCostumerActionPerformed
-        // TODO add your handling code here:
+       int selectedRow = listCustomer.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a customer to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Fetch email from the selected row (assuming email is in column index 1)
+    String email = listCustomer.getValueAt(selectedRow, 1).toString();
+
+    int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this customer?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+    if (confirm != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    String query = "DELETE FROM customer WHERE email = ?";
+
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+         PreparedStatement pst = conn.prepareStatement(query)) {
+
+        pst.setString(1, email);
+
+        int rowsDeleted = pst.executeUpdate();
+
+        if (rowsDeleted > 0) {
+            JOptionPane.showMessageDialog(this, "Customer deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            fetchAndDisplayCustomers(); // Refresh the table
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to delete customer.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_deleteCostumerActionPerformed
 
     private void addCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCostumerActionPerformed
-        // TODO add your handling code here:
+        String name = nameCustomer.getText().trim();
+    String email = emailCustomer.getText().trim();
+    String contact = contactCustomer.getText().trim();
+
+    // Validate input
+    if (name.isEmpty() || email.isEmpty() || contact.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String query = "INSERT INTO customer (name, email, phone_number) VALUES (?, ?, ?)";
+    
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+         PreparedStatement pst = conn.prepareStatement(query)) {
+        
+        pst.setString(1, name);
+        pst.setString(2, email);
+        pst.setString(3, contact);
+        
+        int rowsInserted = pst.executeUpdate();
+
+        if (rowsInserted > 0) {
+            JOptionPane.showMessageDialog(this, "Customer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            fetchAndDisplayCustomers();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add customer.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_addCostumerActionPerformed
 
-    private void contactCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactCostumerActionPerformed
+    public void fetchAndDisplayCustomers() {
+    DefaultTableModel model = (DefaultTableModel) listCustomer.getModel();
+    model.setRowCount(0);
+    
+    String query = "SELECT name, email, phone_number FROM customer";
+    
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+         PreparedStatement pst = conn.prepareStatement(query);
+         ResultSet rs = pst.executeQuery()) {
+        
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getString("name"), rs.getString("email"), rs.getString("phone_number")});
+        }
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    private void contactCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactCustomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_contactCostumerActionPerformed
+    }//GEN-LAST:event_contactCustomerActionPerformed
 
-    private void nameCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameCostumerActionPerformed
+    private void nameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameCustomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nameCostumerActionPerformed
+    }//GEN-LAST:event_nameCustomerActionPerformed
 
     private void cancelBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBookActionPerformed
         // TODO add your handling code here:
@@ -801,10 +918,10 @@ public class menu extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser checkInDate;
     private com.toedter.calendar.JDateChooser checkOutDate;
     private javax.swing.JButton confirmBook;
-    private javax.swing.JTextField contactCostumer;
+    private javax.swing.JTextField contactCustomer;
     private javax.swing.JTextField costumerName;
     private javax.swing.JButton deleteCostumer;
-    private javax.swing.JTextField emailCostumer;
+    private javax.swing.JTextField emailCustomer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -828,8 +945,8 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable listCostumer;
-    private javax.swing.JTextField nameCostumer;
+    private javax.swing.JTable listCustomer;
+    private javax.swing.JTextField nameCustomer;
     private javax.swing.JTextField priceTxt;
     private javax.swing.JComboBox<String> roomChoice;
     private javax.swing.JTable roomList;
