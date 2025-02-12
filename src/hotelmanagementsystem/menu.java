@@ -797,7 +797,7 @@ public final class menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Costumer", jPanel2);
+        jTabbedPane1.addTab("Customer", jPanel2);
 
         jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 97, -1, 447));
 

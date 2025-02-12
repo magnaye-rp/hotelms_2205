@@ -4,6 +4,7 @@
  */
 package hotelmanagementsystem;
 
+
 /**
  *
  * @author USER
@@ -13,10 +14,12 @@ public class cusromer_dashboard extends javax.swing.JFrame {
     /**
      * Creates new form cusromer_dashboard
      */
+    public static String selectedRoomType = "";
+    
     public cusromer_dashboard() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,7 +42,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        bookSingle = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -51,7 +54,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        bookSuite = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -60,7 +63,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        bookDouble = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -118,8 +121,13 @@ public class cusromer_dashboard extends javax.swing.JFrame {
 
         jLabel34.setText("Book now for an exceptional stay!");
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setText("BOOK NOW");
+        bookSingle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bookSingle.setText("BOOK NOW");
+        bookSingle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookSingleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -140,7 +148,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
                             .addComponent(jLabel34)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(136, 136, 136)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bookSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)))
@@ -169,7 +177,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel34)
                         .addGap(54, 54, 54)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bookSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -199,8 +207,13 @@ public class cusromer_dashboard extends javax.swing.JFrame {
 
         jLabel27.setText("that feels like home—only better. Book now for an unforgettable stay!");
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setText("BOOK NOW");
+        bookSuite.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bookSuite.setText("BOOK NOW");
+        bookSuite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookSuiteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -229,7 +242,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(133, 133, 133)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bookSuite, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(280, Short.MAX_VALUE))
@@ -258,7 +271,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel27)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bookSuite, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
@@ -283,8 +296,13 @@ public class cusromer_dashboard extends javax.swing.JFrame {
 
         jLabel13.setText("and a private bathroom, ensuring a seamless and enjoyable stay.");
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setText("BOOK NOW");
+        bookDouble.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bookDouble.setText("BOOK NOW");
+        bookDouble.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookDoubleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -303,7 +321,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(131, 131, 131)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bookDouble, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(297, Short.MAX_VALUE))
@@ -324,7 +342,7 @@ public class cusromer_dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addGap(36, 36, 36)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bookDouble, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -345,6 +363,27 @@ public class cusromer_dashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bookSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSingleActionPerformed
+        
+        selectedRoomType = "Single";
+        new customer_login().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bookSingleActionPerformed
+
+    private void bookSuiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSuiteActionPerformed
+
+       selectedRoomType = "Suite";
+        new customer_login().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bookSuiteActionPerformed
+
+    private void bookDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookDoubleActionPerformed
+        
+        selectedRoomType = "Double";
+        new customer_login().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bookDoubleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,9 +421,9 @@ public class cusromer_dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton bookDouble;
+    private javax.swing.JButton bookSingle;
+    private javax.swing.JButton bookSuite;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
