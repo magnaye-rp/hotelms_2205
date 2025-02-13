@@ -136,6 +136,9 @@
           </Constraints>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jDateChooser2PropertyChange"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="calendar.add(Calendar.DAY_OF_YEAR, 2);&#xa;    Date minDate1 = calendar.getTime();&#xa;    jDateChooser1.setDate(minDate1);&#xa;    jDateChooser1.setMinSelectableDate(minDate1);&#xa;&#xa;    calendar.add(Calendar.DAY_OF_YEAR, 78);&#xa;    Date maxDate1 = calendar.getTime();&#xa;    jDateChooser1.setMaxSelectableDate(maxDate1);&#xa;&#xa;    calendar.setTime(minDate1);&#xa;    calendar.add(Calendar.DAY_OF_YEAR, 1);&#xa;    Date minDate2 = calendar.getTime();&#xa;    jDateChooser2.setDate(minDate2);&#xa;    jDateChooser2.setMinSelectableDate(minDate2);&#xa;&#xa;    calendar.add(Calendar.DAY_OF_YEAR, 13);&#xa;    Date maxDate2 = calendar.getTime();&#xa;    jDateChooser2.setMaxSelectableDate(maxDate2);&#xa;&#xa;    // Temporarily remove listeners while setting the initial dates&#xa;    jDateChooser1.getDateEditor().removePropertyChangeListener(evt -&gt; enforceDateRules());&#xa;    jDateChooser2.getDateEditor().removePropertyChangeListener(evt -&gt; enforceDateRules());&#xa;&#xa;    jDateChooser1.getDateEditor().addPropertyChangeListener(evt -&gt; enforceDateRules());&#xa;    jDateChooser2.getDateEditor().addPropertyChangeListener(evt -&gt; enforceDateRules());"/>
           </AuxValues>
@@ -162,6 +165,21 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="220" y="70" width="10" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/home.png"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="665" y="10" width="40" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

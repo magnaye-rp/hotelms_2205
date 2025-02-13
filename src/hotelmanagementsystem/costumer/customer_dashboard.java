@@ -456,7 +456,7 @@ public class customer_dashboard extends javax.swing.JFrame {
     private void bookSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSingleActionPerformed
         roomType = 1;
         if(logged){
-            new room_selection(roomType,id).setVisible(true);
+            new room_selection(roomType,id, name).setVisible(true);
             this.dispose();
         }else{
             Object[] options = {"Stay Logged Out", "OK"};
@@ -479,7 +479,7 @@ public class customer_dashboard extends javax.swing.JFrame {
     private void bookSuiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSuiteActionPerformed
         roomType = 3;
         if(logged){
-            new room_selection(roomType, id).setVisible(true);
+            new room_selection(roomType, id, name).setVisible(true);
             this.dispose();
         }else{
             Object[] options = {"Stay Logged Out", "OK"};
@@ -502,7 +502,7 @@ public class customer_dashboard extends javax.swing.JFrame {
     private void bookDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookDoubleActionPerformed
         roomType = 2;
         if(logged){
-            new room_selection(roomType, id).setVisible(true);
+            new room_selection(roomType, id, name).setVisible(true);
             this.dispose();
         }else{
             Object[] options = {"Stay Logged Out", "OK"};
@@ -593,7 +593,7 @@ public class customer_dashboard extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new customer_dashboard("", true, 1).setVisible(true);
+                new customer_dashboard("ryan", true, 2).setVisible(true);
             }
         });
     }

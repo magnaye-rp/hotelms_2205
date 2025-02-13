@@ -10,7 +10,11 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -18,9 +22,10 @@ import java.awt.event.*;
  */
 public class room_selection extends javax.swing.JFrame {
     
-    public room_selection(int type, int userID) {
+    public room_selection(int type, int userID, String Name) {
         this.type = type;
         this.userID = userID;
+        this.name = Name;
         initComponents();
     }
     private boolean updating = false;
@@ -76,6 +81,7 @@ public class room_selection extends javax.swing.JFrame {
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,12 +148,25 @@ public class room_selection extends javax.swing.JFrame {
 
         jDateChooser1.getDateEditor().addPropertyChangeListener(evt -> enforceDateRules());
         jDateChooser2.getDateEditor().addPropertyChangeListener(evt -> enforceDateRules());
+        jDateChooser2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser2PropertyChange(evt);
+            }
+        });
         jPanel2.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 140, -1));
         jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 140, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel3.setText("-");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 10, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 10, 40, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,16 +188,32 @@ public class room_selection extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new customer_dashboard(name, true, userID).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
+        if ("date".equals(evt.getPropertyName())) {
+            java.util.Date checkInDate = jDateChooser1.getDate();
+            java.util.Date checkOutDate = jDateChooser2.getDate();
+            java.sql.Date sqlCheckInDate = new java.sql.Date(checkInDate.getTime());
+            java.sql.Date sqlCheckOutDate = new java.sql.Date(checkOutDate.getTime());
+            fetchAvailableRooms(sqlCheckInDate, sqlCheckOutDate);
+        }
+    }//GEN-LAST:event_jDateChooser2PropertyChange
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new room_selection(1, 1).setVisible(true);
+                new room_selection(1, 1, "ryan").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable doubleBeds;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -189,6 +224,7 @@ public class room_selection extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private int type;
     private int userID;
+    private String name;
     Calendar calendar = Calendar.getInstance();
     class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
@@ -214,7 +250,11 @@ public class room_selection extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     fireEditingStopped();
                     int row = doubleBeds.getSelectedRow();
-                    JOptionPane.showMessageDialog(null, "Button clicked on row " + row);
+                    Object roomNo = doubleBeds.getValueAt(row, 0);
+                    int roomId = Integer.parseInt(roomNo.toString());
+                    java.sql.Date checkIn = java.sql.Date.valueOf("2025-02-15");
+                    java.sql.Date checkOut = java.sql.Date.valueOf("2025-02-18");
+                    boolean success = addBooking(userID, roomId, checkIn, checkOut);
                 }
             });
         }
@@ -230,5 +270,70 @@ public class room_selection extends javax.swing.JFrame {
         public Object getCellEditorValue() {
             return label;
         }
+    }
+    private void fetchAvailableRooms(Date checkIn,Date checkOut) {
+        String query = "SELECT r.room_id, r.price FROM room r "
+                     + "LEFT JOIN booking b ON b.room_id = r.room_id "
+                     + "AND (b.check_in_date < ? AND b.check_out_date > ?) "
+                     + "WHERE b.room_id IS NULL AND r.room_type = ?";
+        String rT = getRoomType();
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+             PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setDate(1, (java.sql.Date) checkOut); 
+            pst.setDate(2, (java.sql.Date) checkIn); 
+            pst.setString(2, rT); 
+            ResultSet rs = pst.executeQuery();
+
+            DefaultTableModel model = (DefaultTableModel) doubleBeds.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int roomId = rs.getInt("room_id");
+                double price = rs.getDouble("price");
+
+                model.addRow(new Object[]{roomId, price});
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean addBooking(int customerId, int roomId, Date checkIn, Date checkOut) {
+        String query = "INSERT INTO booking (customer_id, room_id, check_in_date, check_out_date, status) VALUES (?, ?, ?, ?, 'Confirmed')";
+
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            // Set values for placeholders
+            pst.setInt(1, customerId);
+            pst.setInt(2, roomId);
+            pst.setDate(3, (java.sql.Date) checkIn);
+            pst.setDate(4, (java.sql.Date) checkOut);
+
+            int affectedRows = pst.executeUpdate();
+            if (affectedRows > 0) {
+                JOptionPane.showMessageDialog(null, "Booking added successfully!");
+                fetchAvailableRooms(checkIn, checkOut);
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+
+        return false;
+    }
+    String getRoomType(){
+        String roomType = null;
+        if(type == 1){
+            roomType = "Single";
+        }
+        if(type == 2){
+            roomType = "Double";
+        }
+        if(type == 3){
+            roomType = "Suite";
+        }
+        return roomType;
     }
 }
