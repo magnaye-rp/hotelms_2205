@@ -31,6 +31,7 @@ import javax.swing.tree.TreePath;
 public final class adminDashboard extends javax.swing.JFrame {
     public adminDashboard() {
         initComponents();
+        updateRoomAvailability();
     }
     
     public void fetchAndDisplayRooms() {
@@ -164,8 +165,6 @@ public final class adminDashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         roomChoice = new javax.swing.JComboBox<>();
         bookingCost = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        bookingList = new javax.swing.JTable();
         cancelBook = new javax.swing.JButton();
         inDate = new com.toedter.calendar.JDateChooser();
         outDate = new com.toedter.calendar.JDateChooser();
@@ -174,6 +173,8 @@ public final class adminDashboard extends javax.swing.JFrame {
         roomTypeText = new javax.swing.JTextField();
         TotalBookingCost = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        bookingList = new javax.swing.JTable();
         calendar = new com.mindfusion.scheduling.Calendar();
         Schedule schedule = calendar.getSchedule();
         jPanel6 = new javax.swing.JPanel();
@@ -202,6 +203,8 @@ public final class adminDashboard extends javax.swing.JFrame {
         updateCostumer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listCustomer = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
         jInternalFrame1.setVisible(true);
@@ -229,6 +232,11 @@ public final class adminDashboard extends javax.swing.JFrame {
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTabbedPane1.setName(""); // NOI18N
         jTabbedPane1.setRequestFocusEnabled(false);
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(173, 223, 179));
 
@@ -248,6 +256,7 @@ public final class adminDashboard extends javax.swing.JFrame {
         confirmBook.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         confirmBook.setForeground(new java.awt.Color(0, 76, 84));
         confirmBook.setText("CONFIRM");
+        loadRoomsIntoComboBox();
         confirmBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmBookActionPerformed(evt);
@@ -274,63 +283,6 @@ public final class adminDashboard extends javax.swing.JFrame {
 
         bookingCost.setEditable(false);
 
-        bookingList.setBackground(new java.awt.Color(0, 192, 163));
-        bookingList.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bookingList.setForeground(new java.awt.Color(0, 76, 84));
-        bookingList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Name", "Check-In Date", "Check-Out Date", "Room", "Price"
-            }
-        ));
-        bookingList.setShowGrid(true);
-        jScrollPane2.setViewportView(bookingList);
-        if (bookingList.getColumnModel().getColumnCount() > 0) {
-            bookingList.getColumnModel().getColumn(3).setResizable(false);
-            bookingList.getColumnModel().getColumn(3).setHeaderValue("Room");
-            bookingList.getColumnModel().getColumn(4).setHeaderValue("Price");
-        }
-
         cancelBook.setBackground(new java.awt.Color(0, 192, 163));
         cancelBook.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cancelBook.setForeground(new java.awt.Color(0, 76, 84));
@@ -338,6 +290,18 @@ public final class adminDashboard extends javax.swing.JFrame {
         cancelBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBookActionPerformed(evt);
+            }
+        });
+
+        inDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                inDatePropertyChange(evt);
+            }
+        });
+
+        outDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                outDatePropertyChange(evt);
             }
         });
 
@@ -350,9 +314,26 @@ public final class adminDashboard extends javax.swing.JFrame {
 
         roomTypeText.setEditable(false);
 
+        TotalBookingCost.setEditable(false);
+
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 76, 84));
         jLabel16.setText("Total Price:");
+
+        bookingList.setBackground(new java.awt.Color(153, 255, 204));
+        bookingList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Name", "Check In", "Check Out", "Room", "Status", "Total Cost"
+            }
+        ));
+        jScrollPane4.setViewportView(bookingList);
+        fetchAndDisplayBookings();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -390,51 +371,58 @@ public final class adminDashboard extends javax.swing.JFrame {
                             .addComponent(roomTypeText)
                             .addComponent(bookingCost))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(customerBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(customerBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(inDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(outDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(roomChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(roomTypeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(bookingCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(TotalBookingCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(confirmBook)
-                            .addComponent(cancelBook))))
+                    .addComponent(jLabel5)
+                    .addComponent(inDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(outDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(roomChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(roomTypeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(bookingCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(TotalBookingCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmBook)
+                    .addComponent(cancelBook))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
+
+        Calendar calendar5 = Calendar.getInstance();
+        calendar5.setTime(new Date());
+        Date today = calendar5.getTime();
+        inDate.setDate(today);
+        calendar5.add(Calendar.DAY_OF_YEAR, 1);
+        Date tomorrow = calendar5.getTime();
+        outDate.setDate(tomorrow);
 
         jTabbedPane1.addTab("Bookings", jPanel4);
 
@@ -451,7 +439,6 @@ public final class adminDashboard extends javax.swing.JFrame {
         calendar.setMinimumSize(new Dimension(0, 0));
         calendar.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
         setupDatabaseConnection();
-        getBookingsFromDatabase(2);
 
         jLabel15.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -737,32 +724,43 @@ public final class adminDashboard extends javax.swing.JFrame {
         listCustomer.setShowGrid(true);
         jScrollPane1.setViewportView(listCustomer);
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 76, 84));
+        jLabel8.setText("Password:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(addCostumer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(updateCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(emailCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(deleteCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(contactCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(contactCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(passwordField)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(addCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(updateCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
                 .addContainerGap())
@@ -786,9 +784,14 @@ public final class adminDashboard extends javax.swing.JFrame {
                             .addComponent(contactCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(updateCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(deleteCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(updateCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -889,36 +892,38 @@ public final class adminDashboard extends javax.swing.JFrame {
 
     private void addCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCostumerActionPerformed
         String name = nameCustomer.getText().trim();
-    String email = emailCustomer.getText().trim();
-    String contact = contactCustomer.getText().trim();
+        String email = emailCustomer.getText().trim();
+        String contact = contactCustomer.getText().trim();
+        String pass = passwordField.getText().trim();
 
-    // Validate input
-    if (name.isEmpty() || email.isEmpty() || contact.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    String query = "INSERT INTO customer (name, email, phone_number) VALUES (?, ?, ?)";
-    
-    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
-         PreparedStatement pst = conn.prepareStatement(query)) {
-        
-        pst.setString(1, name);
-        pst.setString(2, email);
-        pst.setString(3, contact);
-        
-        int rowsInserted = pst.executeUpdate();
-
-        if (rowsInserted > 0) {
-            JOptionPane.showMessageDialog(this, "Customer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            fetchAndDisplayCustomers();
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add customer.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Validate input
+        if (name.isEmpty() || email.isEmpty() || contact.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+
+        String query = "INSERT INTO customer (name, email, phone_number, password) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+             PreparedStatement pst = conn.prepareStatement(query)) {
+
+            pst.setString(1, name);
+            pst.setString(2, email);
+            pst.setString(3, contact);
+            pst.setString(4, pass);
+
+            int rowsInserted = pst.executeUpdate();
+
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(this, "Customer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                fetchAndDisplayCustomers();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to add customer.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_addCostumerActionPerformed
 
     private void contactCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactCustomerActionPerformed
@@ -930,61 +935,62 @@ public final class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_nameCustomerActionPerformed
 
     private void cancelBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBookActionPerformed
-       int selectedRow = bookingList.getSelectedRow();
-
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a booking to cancel.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Get booking details from the selected row
-    String customerName = bookingList.getValueAt(selectedRow, 0).toString();
-    Date checkInDate = (Date) bookingList.getValueAt(selectedRow, 1);
-    Date checkOutDate = (Date) bookingList.getValueAt(selectedRow, 2);
-
-    // Confirm cancellation
-    int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel this booking?", 
-                                                "Confirm Cancellation", JOptionPane.YES_NO_OPTION);
-    if (confirm != JOptionPane.YES_OPTION) {
-        return;
-    }
-
-    // Retrieve the booking_id based on customer name, check-in, and check-out date
-    String getBookingIdQuery = "SELECT booking_id FROM booking b " +
-                               "JOIN customer c ON b.customer_id = c.customer_id " +
-                               "WHERE c.name = ? AND b.check_in_date = ? AND b.check_out_date = ?";
-
-    String deleteQuery = "DELETE FROM booking WHERE booking_id = ?";
-
-    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
-         PreparedStatement pstGetId = conn.prepareStatement(getBookingIdQuery);
-         PreparedStatement pstDelete = conn.prepareStatement(deleteQuery)) {
-
-        pstGetId.setString(1, customerName);
-        pstGetId.setDate(2, new java.sql.Date(checkInDate.getTime()));
-        pstGetId.setDate(3, new java.sql.Date(checkOutDate.getTime()));
-
-        ResultSet rs = pstGetId.executeQuery();
-        if (rs.next()) {
-            int bookingId = rs.getInt("booking_id");
-
-            // Delete the booking
-            pstDelete.setInt(1, bookingId);
-            int rowsDeleted = pstDelete.executeUpdate();
-
-            if (rowsDeleted > 0) {
-                JOptionPane.showMessageDialog(this, "Booking cancelled successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                fetchAndDisplayBookings(); // Refresh the table
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to cancel booking.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Booking not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        int selectedRow = bookingList.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a booking to cancel.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        String customerName = bookingList.getValueAt(selectedRow, 0).toString();
+        Date checkInDate = (Date) bookingList.getValueAt(selectedRow, 1);
+        Date checkOutDate = (Date) bookingList.getValueAt(selectedRow, 2);
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel this booking?", 
+                                                    "Confirm Cancellation", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        String getBookingQuery = "SELECT booking_id, status FROM booking b " +
+                                 "JOIN customer c ON b.customer_id = c.customer_id " +
+                                 "WHERE c.name = ? AND b.check_in_date = ? AND b.check_out_date = ?";
+
+        String updateQuery = "UPDATE booking SET status = 'Cancelled' WHERE booking_id = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+             PreparedStatement pstGetBooking = conn.prepareStatement(getBookingQuery);
+             PreparedStatement pstUpdate = conn.prepareStatement(updateQuery)) {
+
+            pstGetBooking.setString(1, customerName);
+            pstGetBooking.setDate(2, new java.sql.Date(checkInDate.getTime()));
+            pstGetBooking.setDate(3, new java.sql.Date(checkOutDate.getTime()));
+
+            ResultSet rs = pstGetBooking.executeQuery();
+            if (rs.next()) {
+                int bookingId = rs.getInt("booking_id");
+                String status = rs.getString("status");
+
+                if ("Cancelled".equalsIgnoreCase(status)||"Finished".equalsIgnoreCase(status)) {
+                    JOptionPane.showMessageDialog(this, "This booking cannot be canceled anymore.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                pstUpdate.setInt(1, bookingId);
+                int rowsUpdated = pstUpdate.executeUpdate();
+
+                if (rowsUpdated > 0) {
+                    JOptionPane.showMessageDialog(this, "Booking status updated to 'Canceled'.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    fetchAndDisplayBookings();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to update booking status.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Booking not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        updateRoomAvailability();
+        loadRoomsIntoComboBox();
     }//GEN-LAST:event_cancelBookActionPerformed
 
     private void confirmBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBookActionPerformed
@@ -1046,35 +1052,36 @@ try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/
 } catch (SQLException e) {
     JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
-
+updateRoomAvailability();
     }//GEN-LAST:event_confirmBookActionPerformed
-private void fetchAndDisplayBookings() {
-    DefaultTableModel model = (DefaultTableModel) bookingList.getModel();
-    model.setRowCount(0); // Clear the table before updating
+    private void fetchAndDisplayBookings() {
+        DefaultTableModel model = (DefaultTableModel) bookingList.getModel();
+        model.setRowCount(0);
 
-    String query = "SELECT c.name, b.check_in_date, b.check_out_date, r.room_type, b.total_cost " +
-                   "FROM booking b " +
-                   "JOIN customer c ON b.customer_id = c.customer_id " +
-                   "JOIN room r ON b.room_id = r.room_id";
+        String query = "SELECT c.name, b.check_in_date, b.check_out_date, r.room_type, r.room_id, b.status, b.total_cost " +
+                       "FROM booking b " +
+                       "JOIN customer c ON b.customer_id = c.customer_id " +
+                       "JOIN room r ON b.room_id = r.room_id";
 
-    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
-         PreparedStatement pst = conn.prepareStatement(query);
-         ResultSet rs = pst.executeQuery()) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+             PreparedStatement pst = conn.prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
 
-        while (rs.next()) {
-            String name = rs.getString("name");
-            Date checkInDate = rs.getDate("check_in_date");
-            Date checkOutDate = rs.getDate("check_out_date");
-            String roomType = rs.getString("room_type");
-            double totalCost = rs.getDouble("total_cost");
+            while (rs.next()) {
+                String name = rs.getString("name");
+                Date checkInDate = rs.getDate("check_in_date");
+                Date checkOutDate = rs.getDate("check_out_date");
+                String room = "Rm No. " + rs.getString("room_id") + " - " + rs.getString("room_type");
+                String status = rs.getString("status");
+                double totalCost = rs.getDouble("total_cost");
 
-            model.addRow(new Object[]{name, checkInDate, checkOutDate, roomType, totalCost});
+                model.addRow(new Object[]{name, checkInDate, checkOutDate, room, status, totalCost});
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
 
     private void addRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoomActionPerformed
         String selected = (String) roomType.getSelectedItem();
@@ -1207,7 +1214,50 @@ private void fetchAndDisplayBookings() {
                 JOptionPane.showMessageDialog(this, "Invalid room number selected.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+        updateRoomAvailability();
     }//GEN-LAST:event_roomChoiceItemStateChanged
+
+    private void outDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_outDatePropertyChange
+        Date checkIn = inDate.getDate();Date checkOut = outDate.getDate();
+        if (checkIn != null && checkOut != null) {
+            long diff = checkOut.getTime() - checkIn.getTime();
+            int days = (int) (diff / (1000 * 60 * 60 * 24));
+            if (days < 1) {JOptionPane.showMessageDialog(this, "Check-out must be after check-in!", "Error", JOptionPane.ERROR_MESSAGE);return;}
+            System.out.println(Double.parseDouble(bookingCost.getText()));
+                System.out.println(days);
+            try {
+                double costPerDay = Double.parseDouble(bookingCost.getText());
+                double totalCost = days * costPerDay;
+                TotalBookingCost.setText(String.format("%.2f", totalCost));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Invalid cost value!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_outDatePropertyChange
+
+    private void inDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_inDatePropertyChange
+        if ("date".equals(evt.getPropertyName())) {
+        Date selectedDate = inDate.getDate();
+
+        // Get today's date without time
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date startOfToday = calendar.getTime();
+
+        if (selectedDate != null && selectedDate.before(startOfToday)) {
+            JOptionPane.showMessageDialog(this, "You cannot select a date earlier than today!", "Invalid Date", JOptionPane.WARNING_MESSAGE);
+            inDate.setDate(startOfToday);
+        }
+    }
+    }//GEN-LAST:event_inDatePropertyChange
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        updateRoomAvailability();
+        System.out.println("Stonks");
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1245,6 +1295,7 @@ private void fetchAndDisplayBookings() {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1253,14 +1304,15 @@ private void fetchAndDisplayBookings() {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTree jTree1;
     private javax.swing.JTable listCustomer;
     private javax.swing.JTextField nameCustomer;
     private com.toedter.calendar.JDateChooser outDate;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField priceTxt;
     private javax.swing.JComboBox<String> roomChoice;
     private javax.swing.JTable roomList;
@@ -1324,7 +1376,6 @@ private void fetchAndDisplayBookings() {
             JOptionPane.showMessageDialog(this, "Error loading Rooms: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
     private void loadRoomInfo(int id) {
     String url = "jdbc:mysql://localhost:3306/hms"; 
     String user = "root";  
@@ -1347,5 +1398,56 @@ private void fetchAndDisplayBookings() {
         JOptionPane.showMessageDialog(this, "Error loading Rooms: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+    private void updateRoomAvailability() {
+        String url = "jdbc:mysql://localhost:3306/hms";
+        String user = "root";
+        String pass = "";
+
+        String query = "SELECT b.booking_id, b.check_in_date, b.check_out_date, b.status, r.room_id, r.availability_status " +
+                       "FROM booking b " +
+                       "JOIN room r ON r.room_id = b.room_id";
+
+        String updateRoomQuery = "UPDATE room SET availability_status = ? WHERE room_id = ?";
+        String updateBookingQuery = "UPDATE booking SET status = 'Finished' WHERE booking_id = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstSelect = conn.prepareStatement(query);
+             PreparedStatement pstUpdateRoom = conn.prepareStatement(updateRoomQuery);
+             PreparedStatement pstUpdateBooking = conn.prepareStatement(updateBookingQuery);
+             ResultSet rs = pstSelect.executeQuery()) {
+
+            Date today = new Date();
+
+            while (rs.next()) {
+                int roomId = rs.getInt("room_id");
+                int bookingId = rs.getInt("booking_id");
+                Date checkInDate = rs.getDate("check_in_date");
+                Date checkOutDate = rs.getDate("check_out_date");
+                String bookingStatus = rs.getString("status");
+                String newRoomStatus = null;
+
+                if ((today.equals(checkInDate) || today.after(checkInDate)) && today.before(checkOutDate)) {
+                    newRoomStatus = "Booked";
+                } else if (today.after(checkOutDate)) {
+                    newRoomStatus = "Available";
+
+                    // Mark booking as "Finished" if check-out is past and it's not already finished
+                    if (!"Finished".equals(bookingStatus)) {
+                        pstUpdateBooking.setInt(1, bookingId);
+                        pstUpdateBooking.executeUpdate();
+                    }
+                }
+
+                if (newRoomStatus != null) {
+                    pstUpdateRoom.setString(1, newRoomStatus);
+                    pstUpdateRoom.setInt(2, roomId);
+                    pstUpdateRoom.executeUpdate();
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error updating status: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 }
