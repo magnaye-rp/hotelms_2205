@@ -2,6 +2,7 @@
 package hotelmanagementsystem.costumer;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
@@ -13,8 +14,10 @@ import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class customer_dashboard extends javax.swing.JFrame {
@@ -547,47 +550,75 @@ public class customer_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(name == null){
-            return;
-        }
-        String url = "jdbc:mysql://localhost:3306/hms";
-        String user = "root";
-        String password = "";
-        String query = "SELECT r.room_type, b.check_in_date, b.check_out_date, status " +
-                       "FROM booking b JOIN room r ON r.room_id = b.room_id " +
-                       "WHERE b.customer_id = 1";
+if (name == null) {
+    return;
+}
+String url = "jdbc:mysql://localhost:3306/hms";
+String user = "root";
+String password = "";
+String query = "SELECT b.booking_id, r.room_type, b.check_in_date, b.check_out_date, b.status " +
+               "FROM booking b JOIN room r ON r.room_id = b.room_id " +
+               "WHERE b.customer_id = 1";
 
+try (Connection conn = DriverManager.getConnection(url, user, password);
+     PreparedStatement stmt = conn.prepareStatement(query)) {
+
+    ResultSet rs = stmt.executeQuery();
+    java.sql.ResultSetMetaData metaData = rs.getMetaData();
+    int columnCount = metaData.getColumnCount();
+
+    Vector<String> columnNames = new Vector<>();
+    for (int i = 1; i <= columnCount; i++) {
+        columnNames.add(metaData.getColumnName(i));
+    }
+
+    Vector<Vector<Object>> data = new Vector<>();
+    while (rs.next()) {
+        Vector<Object> row = new Vector<>();
+        for (int i = 1; i <= columnCount; i++) {
+            row.add(rs.getObject(i));
+        }
+        data.add(row);
+    }
+
+    DefaultTableModel model = new DefaultTableModel(data, columnNames);
+    jTable1.setModel(model);
+} catch (SQLException e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(null, "Error retrieving data from database: " + e.getMessage());
+}
+
+JButton cancelButton = new JButton("Cancel Booking");
+cancelButton.addActionListener(e -> {
+    int selectedRow = jTable1.getSelectedRow();
+    if (selectedRow != -1) {
+        int bookingId = (int) jTable1.getValueAt(selectedRow, 0);
         try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            ResultSet rs = stmt.executeQuery();
-
-            ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            Vector<String> columnNames = new Vector<>();
-            for (int i = 1; i <= columnCount; i++) {
-                columnNames.add(metaData.getColumnName(i));
-            }
-
-            Vector<Vector<Object>> data = new Vector<>();
-            while (rs.next()) {
-                Vector<Object> row = new Vector<>();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.add(rs.getObject(i));
-                }
-                data.add(row);
-            }
-
-            DefaultTableModel model = new DefaultTableModel(data, columnNames);
-            jTable1.setModel(model);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error retrieving data from database: " + e.getMessage());
+             PreparedStatement updateStmt = conn.prepareStatement("UPDATE booking SET status = 'Cancelled' WHERE booking_id = ?")) {
+            updateStmt.setInt(1, bookingId);
+            updateStmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Booking cancelled successfully.");
+            ((DefaultTableModel) jTable1.getModel()).setValueAt("Cancelled", selectedRow, 4);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error updating booking status: " + ex.getMessage());
         }
-        jDialog1.pack();
-        jDialog1.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(null, "Please select a booking to cancel.");
+    }
+});
+
+JPanel panel = new JPanel();
+panel.add(cancelButton);
+
+jDialog1.setLayout(new BorderLayout());
+jDialog1.add(new JScrollPane(jTable1), BorderLayout.CENTER);
+jDialog1.add(panel, BorderLayout.SOUTH);
+jDialog1.pack();
+jDialog1.revalidate();
+jDialog1.repaint();
+jDialog1.setVisible(true);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

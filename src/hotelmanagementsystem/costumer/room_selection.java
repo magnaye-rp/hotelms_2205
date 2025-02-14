@@ -297,6 +297,7 @@ public class room_selection extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
     public boolean addBooking(int customerId, int roomId, Date checkIn, Date checkOut) {
         String query = "INSERT INTO booking (customer_id, room_id, check_in_date, check_out_date, status) VALUES (?, ?, ?, ?, 'Confirmed')";
 
