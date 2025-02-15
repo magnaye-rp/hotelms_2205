@@ -593,6 +593,12 @@ cancelButton.addActionListener(e -> {
     int selectedRow = jTable1.getSelectedRow();
     if (selectedRow != -1) {
         int bookingId = (int) jTable1.getValueAt(selectedRow, 0);
+        String bookingStatus = (String) jTable1.getValueAt(selectedRow, 4);
+        if("Cancelled".equals(bookingStatus)||"Finished".equals(bookingStatus)){
+            JOptionPane.showMessageDialog(this, "This booking cannot be canceled anymore.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+        }
+        
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement updateStmt = conn.prepareStatement("UPDATE booking SET status = 'Cancelled' WHERE booking_id = ?")) {
             updateStmt.setInt(1, bookingId);
