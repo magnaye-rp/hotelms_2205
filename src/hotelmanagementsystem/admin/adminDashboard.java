@@ -32,6 +32,7 @@ public final class adminDashboard extends javax.swing.JFrame {
     public adminDashboard() {
         initComponents();
         updateRoomAvailability();
+        this.setLocationRelativeTo(this);
     }
     
     public void fetchAndDisplayRooms() {

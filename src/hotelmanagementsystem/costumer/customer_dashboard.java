@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class customer_dashboard extends javax.swing.JFrame {
-
+    
     public customer_dashboard(String nm, boolean lg, int id) {
         name = nm;
         logged = lg;
@@ -558,11 +558,11 @@ String user = "root";
 String password = "";
 String query = "SELECT b.booking_id, r.room_type, b.check_in_date, b.check_out_date, b.status " +
                "FROM booking b JOIN room r ON r.room_id = b.room_id " +
-               "WHERE b.customer_id = 1";
+               "WHERE b.customer_id = ?";
 
 try (Connection conn = DriverManager.getConnection(url, user, password);
      PreparedStatement stmt = conn.prepareStatement(query)) {
-
+    stmt.setInt(1, id);
     ResultSet rs = stmt.executeQuery();
     java.sql.ResultSetMetaData metaData = rs.getMetaData();
     int columnCount = metaData.getColumnCount();
@@ -630,7 +630,7 @@ jDialog1.setVisible(true);
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new customer_dashboard("ryan", true, 2).setVisible(true);
+                new customer_dashboard(null, false, 1).setVisible(true);
             }
         });
     }
